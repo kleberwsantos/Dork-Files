@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<!-- 
+Project: Dork Search Files
+Website: www.100security.com.br/dsf
+Instagram: @100security
+GitHub: @100security
+By: Marcos Henrique - https://www.linkedin.com/in/user-marcoshenrique
+-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Dork Search Files</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+        <meta name="msapplication-TileImage" content="images/favicon.png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="images/apple-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="60x60" href="images/apple-icon-60x60.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="images/apple-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="images/apple-icon-76x76.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="images/apple-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="images/apple-icon-120x120.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="images/apple-icon-144x144.png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="images/apple-icon-152x152.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="images/apple-icon-180x180.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="images/android-icon-192x192.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+        <link rel="icon" type="image/png" href="images/favicon.png" />
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                padding: 20px;
+                background-color: #f8f9fa;
+            }
+            .container {
+                max-width: 1280px;
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+            li {
+                margin: 10px 0;
+            }
+            a {
+                text-decoration: none;
+                color: #007bff;
+            }
+            a:hover {
+                text-decoration: none;
+            }
+            .file-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .card {
+                width: 100px;
+                text-align: center;
+                padding: 10px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            }
+
+            .card img {
+                width: 50px;
+                height: 50px;
+                object-fit: contain;
+            }
+
+            .card-title {
+                font-size: 14px;
+                margin-top: 5px;
+            }
+
+            .card-text {
+                font-size: 16px;
+                font-weight: bold;
+                color: #007bff;
+            }
+
+            .hidden {
+                display: none;
+            }
+            .hidden {
+                display: none;
+            }
+            .filter-card {
+                background: #ffffff;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 600px;
+                margin: 20px auto;
+            }
+
+            .filter-header {
+                font-size: 18px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 15px;
+            }
+
+            .filters-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .filters-container {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+            }
+
+            .form-check {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f9f9f9;
+                padding: 10px;
+                border-radius: 8px;
+                transition: background 0.3s ease, box-shadow 0.3s ease;
+                cursor: pointer;
+                width: 140px;
+                height: 50px;
+                gap: 8px;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.08);
+            }
+
+            .form-check:hover {
+                background: #f1f1f1;
+                box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.12);
+            }
+
+            .form-check-input {
+                appearance: none;
+                width: 18px;
+                height: 18px;
+                border: 1px solid #007bff;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background 0.2s, border-color 0.2s;
+            }
+
+            .form-check-input:checked {
+                background: #007bff;
+                border-color: #0056b3;
+            }
+
+            .form-check-input:checked::before {
+                content: "✔";
+                color: white;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .form-check label {
+                display: flex;
+                align-items: center;
+                font-size: 14px;
+                font-weight: 500;
+                color: #333;
+                transition: color 0.3s;
+            }
+
+            .form-check label img {
+                width: 24px;
+                height: 24px;
+                margin-right: 6px;
+            }
+
+            .form-check-input:checked + label {
+                color: #007bff;
+            }
+
+            .custom-input {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-top: 10px;
+            }
+
+            .form-control {
+                flex: 1;
+                border-radius: 8px;
+                border: 1px solid #ccc;
+            }
+
+            .btn-filter {
+                background-color: #007bff;
+                color: white;
+                border-radius: 8px;
+                padding: 8px 12px;
+                font-size: 14px;
+                border: none;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .btn-filter:hover {
+                background-color: #0056b3;
+            }
+			
+            #customFileType {
+                display: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.html"><img src="images/100security.png" width="70px" /></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="btn btn-outline-dark" href="index.html"><i class="bi-house-fill" role="img" style="font-size: 1em;"></i> Home</a>
+                            </li>
+                            &nbsp;&nbsp;
+                            <li class="nav-item">
+                                <a class="btn btn-outline-dark" href="https://www.exploit-db.com/google-hacking-database" target="_blank"><i class="bi-google" role="img" style="font-size: 1em;"></i> Google Hacking Database</a>
+                            </li>
+                            &nbsp;&nbsp;
+                            <li class="nav-item">
+                                <a class="btn btn-outline-dark" href="https://www.github.com/100security/dsf" target="_blank"><i class="bi-github" role="img" style="font-size: 1em;"></i> GitHub</a>
+                            </li>
+                        </ul>
+                        <form class="d-flex">
+                            <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#aboutModal"><i class="bi-person-fill" role="img" style="font-size: 1em;"></i> About</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+            <br />
+            <center><img src="images/dsf.png" /></center>
+            <div class="mb-3 d-flex">
+                <input class="form-control me-2 text-center" type="text" id="query" placeholder="www.domain.com / text" />
+                <button class="btn btn-outline-primary" onclick="searchGoogle()"><i class="bi-search" role="img" style="font-size: 1em;"></i> Search</button>&nbsp;
+                <button class="btn btn-outline-danger" onclick="location.reload(true)"><i class="bi-arrow-repeat" role="img" style="font-size: 1em;"></i> Refresh</button>
+            </div>
+
+            <div class="container mt-4">
+                <div class="mb-3">
+                    <label class="form-label"><strong>Filter by File Type:</strong></label>
+                    <div class="filters-container">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="selectAll" />
+                            <label class="form-check-label" for="selectAll">
+                                <strong><img src="images/todos.png" width="20px" />&nbsp;All</strong>
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="pdf" />
+                            <label class="form-check-label"><img src="images/pdf.png" width="20px" />&nbsp;PDF</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="doc" />
+                            <label class="form-check-label"><img src="images/doc.png" width="20px" />&nbsp;DOC</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="docx" />
+                            <label class="form-check-label"><img src="images/docx.png" width="20px" />&nbsp;DOCX</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="xls" />
+                            <label class="form-check-label"><img src="images/xls.png" width="20px" />&nbsp;XLS</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="xlsx" />
+                            <label class="form-check-label"><img src="images/xlsx.png" width="20px" />&nbsp;XLSX</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="ppt" />
+                            <label class="form-check-label"><img src="images/ppt.png" width="20px" />&nbsp;PPT</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="pptx" />
+                            <label class="form-check-label"><img src="images/pptx.png" width="20px" />&nbsp;PPTX</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="zip" />
+                            <label class="form-check-label"><img src="images/zip.png" width="20px" />&nbsp;ZIP</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="rar" />
+                            <label class="form-check-label"><img src="images/rar.png" width="20px" />&nbsp;RAR</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="txt" />
+                            <label class="form-check-label"><img src="images/txt.png" width="20px" />&nbsp;TXT</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="csv" />
+                            <label class="form-check-label"><img src="images/csv.png" width="20px" />&nbsp;CSV</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="xml" />
+                            <label class="form-check-label"><img src="images/xml.png" width="20px" />&nbsp;XML</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="log" />
+                            <label class="form-check-label"><img src="images/log.png" width="20px" />&nbsp;LOG</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="sql" />
+                            <label class="form-check-label"><img src="images/sql.png" width="20px" />&nbsp;SQL</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="mdb" />
+                            <label class="form-check-label"><img src="images/mdb.png" width="20px" />&nbsp;MDB</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="db" />
+                            <label class="form-check-label"><img src="images/db.png" width="20px" />&nbsp;DB</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="ini" />
+                            <label class="form-check-label"><img src="images/ini.png" width="20px" />&nbsp;INI</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="cfg" />
+                            <label class="form-check-label"><img src="images/cfg.png" width="20px" />&nbsp;CFG</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="conf" />
+                            <label class="form-check-label"><img src="images/conf.png" width="20px" />&nbsp;CONF</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="bak" />
+                            <label class="form-check-label"><img src="images/bak.png" width="20px" />&nbsp;BAK</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="odt" />
+                            <label class="form-check-label"><img src="images/odt.png" width="20px" />&nbsp;ODT</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="ods" />
+                            <label class="form-check-label"><img src="images/ods.png" width="20px" />&nbsp;ODS</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="odp" />
+                            <label class="form-check-label"><img src="images/odp.png" width="20px" />&nbsp;ODP</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="odg" />
+                            <label class="form-check-label"><img src="images/odg.png" width="20px" />&nbsp;ODG</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="odf" />
+                            <label class="form-check-label"><img src="images/odf.png" width="20px" />&nbsp;ODF</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input filetype" type="checkbox" value="odb" />
+                            <label class="form-check-label"><img src="images/odb.png" width="20px" />&nbsp;ODB</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="customFileTypeCheckbox" />
+                            <label class="form-check-label"><img src="images/ext.png" width="20px" />&nbsp;EXT</label>
+                        </div>
+                        <input type="text" id="customFileType" class="form-control" placeholder="..." size="4" maxlength="4" style="width: 10px; text-align: center;" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mt-4">
+                <div class="file-container" id="fileCounts">
+                    <div class="card hidden" id="card-pdf">
+                        <div class="card-body">
+                            <img src="images/pdf.png" />
+                            <h5 class="card-title">PDF</h5>
+                            <p class="card-text" id="count-pdf">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-doc">
+                        <div class="card-body">
+                            <img src="images/doc.png" />
+                            <h5 class="card-title">DOC</h5>
+                            <p class="card-text" id="count-doc">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-docx">
+                        <div class="card-body">
+                            <img src="images/docx.png" />
+                            <h5 class="card-title">DOCX</h5>
+                            <p class="card-text" id="count-docx">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-xls">
+                        <div class="card-body">
+                            <img src="images/xls.png" />
+                            <h5 class="card-title">XLS</h5>
+                            <p class="card-text" id="count-xls">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-xlsx">
+                        <div class="card-body">
+                            <img src="images/xlsx.png" />
+                            <h5 class="card-title">XLSX</h5>
+                            <p class="card-text" id="count-xlsx">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-ppt">
+                        <div class="card-body">
+                            <img src="images/ppt.png" />
+                            <h5 class="card-title">PPT</h5>
+                            <p class="card-text" id="count-ppt">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-pptx">
+                        <div class="card-body">
+                            <img src="images/pptx.png" />
+                            <h5 class="card-title">PPTX</h5>
+                            <p class="card-text" id="count-pptx">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-zip">
+                        <div class="card-body">
+                            <img src="images/zip.png" />
+                            <h5 class="card-title">ZIP</h5>
+                            <p class="card-text" id="count-zip">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-rar">
+                        <div class="card-body">
+                            <img src="images/rar.png" />
+                            <h5 class="card-title">RAR</h5>
+                            <p class="card-text" id="count-rar">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-txt">
+                        <div class="card-body">
+                            <img src="images/txt.png" />
+                            <h5 class="card-title">TXT</h5>
+                            <p class="card-text" id="count-txt">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-csv">
+                        <div class="card-body">
+                            <img src="images/csv.png" />
+                            <h5 class="card-title">CSV</h5>
+                            <p class="card-text" id="count-csv">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-xml">
+                        <div class="card-body">
+                            <img src="images/xml.png" />
+                            <h5 class="card-title">XML</h5>
+                            <p class="card-text" id="count-xml">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-log">
+                        <div class="card-body">
+                            <img src="images/log.png" />
+                            <h5 class="card-title">LOG</h5>
+                            <p class="card-text" id="count-log">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-sql">
+                        <div class="card-body">
+                            <img src="images/sql.png" />
+                            <h5 class="card-title">SQL</h5>
+                            <p class="card-text" id="count-sql">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-mdb">
+                        <div class="card-body">
+                            <img src="images/mdb.png" />
+                            <h5 class="card-title">MDB</h5>
+                            <p class="card-text" id="count-mdb">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-db">
+                        <div class="card-body">
+                            <img src="images/db.png" />
+                            <h5 class="card-title">DB</h5>
+                            <p class="card-text" id="count-db">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-ini">
+                        <div class="card-body">
+                            <img src="images/ini.png" />
+                            <h5 class="card-title">INI</h5>
+                            <p class="card-text" id="count-ini">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-cfg">
+                        <div class="card-body">
+                            <img src="images/cfg.png" />
+                            <h5 class="card-title">CFG</h5>
+                            <p class="card-text" id="count-cfg">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-conf">
+                        <div class="card-body">
+                            <img src="images/conf.png" />
+                            <h5 class="card-title">CONF</h5>
+                            <p class="card-text" id="count-conf">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-bak">
+                        <div class="card-body">
+                            <img src="images/bak.png" />
+                            <h5 class="card-title">BAK</h5>
+                            <p class="card-text" id="count-bak">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-odt">
+                        <div class="card-body">
+                            <img src="images/odt.png" />
+                            <h5 class="card-title">ODT</h5>
+                            <p class="card-text" id="count-odt">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-ods">
+                        <div class="card-body">
+                            <img src="images/ods.png" />
+                            <h5 class="card-title">ODS</h5>
+                            <p class="card-text" id="count-ods">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-odp">
+                        <div class="card-body">
+                            <img src="images/odp.png" />
+                            <h5 class="card-title">ODP</h5>
+                            <p class="card-text" id="count-odp">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-odg">
+                        <div class="card-body">
+                            <img src="images/odg.png" />
+                            <h5 class="card-title">ODG</h5>
+                            <p class="card-text" id="count-odg">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-odf">
+                        <div class="card-body">
+                            <img src="images/odf.png" />
+                            <h5 class="card-title">ODF</h5>
+                            <p class="card-text" id="count-odf">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-odb">
+                        <div class="card-body">
+                            <img src="images/odb.png" />
+                            <h5 class="card-title">ODB</h5>
+                            <p class="card-text" id="count-odb">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="customCard">
+                        <div class="card-body">
+                            <img src="images/ext.png" />
+                            <h5 class="card-title" id="customCardTitle"></h5>
+                            <p class="card-text" id="count-custom">0</p>
+                        </div>
+                    </div>
+                    <div class="card hidden" id="card-total">
+                        <div class="card-body">
+                            <img src="images/todos.png" />
+                            <h5 class="card-title">TOTAL</h5>
+                            <p class="card-text" id="count-total">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-4 d-flex justify-content-between">
+                <span>🔍 Results:</span>
+                <button class="btn btn-outline-success" onclick="downloadResultsAsCSV()"><i class="bi-caret-down-square" role="img" style="font-size: 1em;"></i> Download</button>
+            </h3>
+            <ul id="results"></ul>
+        </div>
+
+        <script>
+            const apiKey = "<INSERT-YOUR-API-KEY>"; // apiKey - https://console.cloud.google.com/
+            const cxId = "<INSERT-YOUR-CX-ID>"; // cxID - https://programmablesearchengine.google.com/controlpanel/all
+
+            document.getElementById("customFileTypeCheckbox").addEventListener("change", function () {
+                document.getElementById("customFileType").classList.toggle("hidden", !this.checked);
+                document.getElementById("customCard").classList.add("hidden");
+            });
+
+            document.getElementById("customFileType").addEventListener("input", function () {
+                let customExt = this.value.trim();
+                if (customExt) {
+                    document.getElementById("customCard").classList.remove("hidden");
+                    document.getElementById("customCardTitle").textContent = customExt.toUpperCase();
+                } else {
+                    document.getElementById("customCard").classList.add("hidden");
+                }
+            });
+
+            document.getElementById("selectAll").addEventListener("change", function () {
+                let checkboxes = document.querySelectorAll(".filetype");
+                checkboxes.forEach((checkbox) => (checkbox.checked = this.checked));
+                document.getElementById("customFileTypeCheckbox").checked = false;
+            });
+
+            let processedResults = [];
+
+            let fileCount = {};
+
+            async function searchGoogle() {
+                const query = document.getElementById("query").value.trim();
+                processedResults = [];
+                if (!query) {
+                    document.getElementById("resultsList").innerHTML = `
+            <div class="alert alert-warning" role="alert">
+                Enter text to search!
+            </div>
+        `;
+                    return;
+                }
+
+                const checkboxes = document.querySelectorAll(".filetype");
+                const selectAllCheckbox = document.getElementById("selectAll");
+                const customFileTypeCheckbox = document.getElementById("customFileTypeCheckbox");
+                const customFileTypeInput = document.getElementById("customFileType");
+
+                const isAnySelected = Array.from(checkboxes).some((cb) => cb.checked);
+
+                if (customFileTypeCheckbox.checked && customFileTypeInput.value.trim()) {
+                } else if (!isAnySelected) {
+                    selectAllCheckbox.checked = true;
+                    checkboxes.forEach((cb) => {
+                        if (cb !== customFileTypeCheckbox) {
+                            cb.checked = true;
+                        }
+                    });
+                }
+
+                let fileTypes = [];
+                document.querySelectorAll(".filetype:checked").forEach((checkbox) => {
+                    fileTypes.push(`filetype:${checkbox.value}`);
+                });
+
+                const customFileType = customFileTypeInput.value.trim();
+                if (customFileTypeCheckbox.checked && customFileType) {
+                    fileTypes.push(`filetype:${customFileType}`);
+                }
+
+                let searchQuery = query;
+                if (fileTypes.length > 0) {
+                    searchQuery += " " + fileTypes.join(" OR ");
+                }
+
+                console.log("Selected File Types:", fileTypes);
+
+                const resultsList = document.getElementById("results");
+                resultsList.innerHTML = `
+
+    <p>🔍 Searching...</p>
+    <div class="progress mt-3" style="height: 25px;">
+        <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" 
+             role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+            0%
+        </div>
+    </div>
+`;
+
+                let allResults = [];
+
+                let fileCount = {
+                    pdf: 0,
+                    doc: 0,
+                    docx: 0,
+                    xls: 0,
+                    xlsx: 0,
+                    ppt: 0,
+                    pptx: 0,
+                    zip: 0,
+                    rar: 0,
+                    zip: 0,
+                    rar: 0,
+                    txt: 0,
+                    csv: 0,
+                    xml: 0,
+                    log: 0,
+                    sql: 0,
+                    mdb: 0,
+                    db: 0,
+                    ini: 0,
+                    cfg: 0,
+                    conf: 0,
+                    bak: 0,
+                    odt: 0,
+                    ods: 0,
+                    odp: 0,
+                    odg: 0,
+                    odf: 0,
+                    odb: 0,
+                    custom: 0,
+                };
+
+                let progressBar = document.getElementById("progress-bar");
+                progressBar.style.width = "0%";
+                progressBar.textContent = "0%";
+                progressBar.setAttribute("aria-valuenow", "0");
+
+                try {
+                    for (let i = 0; i < 10; i++) {
+                        let start = i * 10 + 1;
+                        let url = `https://www.googleapis.com/customsearch/v1?q=${encodeURIComponent(searchQuery)}&key=${apiKey}&cx=${cxId}&start=${start}`;
+
+                        const response = await fetch(url);
+                        const data = await response.json();
+
+                        // Atualiza a barra de progresso
+                        let progress = Math.round(((i + 1) / 10) * 100);
+                        progressBar.style.width = progress + "%";
+                        progressBar.textContent = progress + "%";
+                        progressBar.setAttribute("aria-valuenow", progress);
+
+                        if (data.items) {
+                            allResults.push(...data.items);
+                            data.items.forEach((item) => {
+                                const fileExtension = new URL(item.link).pathname.split(".").pop().toLowerCase();
+
+                                processedResults.push({
+                                    link: item.link,
+                                    title: item.title || "No title",
+                                    fileExtension: fileExtension,
+                                });
+
+                                // Atualiza a contagem dos arquivos por extensão
+                                if (fileExtension === "pdf") fileCount.pdf++;
+                                else if (fileExtension === "doc") fileCount.doc++;
+                                else if (fileExtension === "docx") fileCount.docx++;
+                                else if (fileExtension === "xls") fileCount.xls++;
+                                else if (fileExtension === "xlsx") fileCount.xlsx++;
+                                else if (fileExtension === "ppt") fileCount.ppt++;
+                                else if (fileExtension === "pptx") fileCount.pptx++;
+                                else if (fileExtension === "zip") fileCount.zip++;
+                                else if (fileExtension === "rar") fileCount.rar++;
+                                else if (fileExtension === "txt") fileCount.txt++;
+                                else if (fileExtension === "csv") fileCount.csv++;
+                                else if (fileExtension === "xml") fileCount.xml++;
+                                else if (fileExtension === "log") fileCount.log++;
+                                else if (fileExtension === "sql") fileCount.sql++;
+                                else if (fileExtension === "mdb") fileCount.mdb++;
+                                else if (fileExtension === "db") fileCount.db++;
+                                else if (fileExtension === "ini") fileCount.ini++;
+                                else if (fileExtension === "cfg") fileCount.cfg++;
+                                else if (fileExtension === "conf") fileCount.conf++;
+                                else if (fileExtension === "bak") fileCount.bak++;
+                                else if (fileExtension === "odt") fileCount.odt++;
+                                else if (fileExtension === "ods") fileCount.ods++;
+                                else if (fileExtension === "odp") fileCount.odp++;
+                                else if (fileExtension === "odg") fileCount.odg++;
+                                else if (fileExtension === "odf") fileCount.odf++;
+                                else if (fileExtension === "odb") fileCount.odb++;
+                                else if (customFileType && fileExtension === customFileType.toLowerCase()) fileCount.custom++;
+                            });
+                        }
+                    }
+
+                    progressBar.style.width = "100%";
+                    progressBar.textContent = "Concluído!";
+                    progressBar.setAttribute("aria-valuenow", "100");
+
+                    allResults = sortResultsByExtension(allResults);
+
+                    let tableHTML = `
+            <table class="table table-hover text-center align-middle">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">Icon</th>
+                        <th>Title</th>
+                        <th style="width: 100px;">Access</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+                    allResults.forEach((item, index) => {
+                        const urlObj = new URL(item.link);
+                        const faviconUrl = `https://www.google.com/s2/favicons?sz=32&domain=${urlObj.hostname}`;
+
+                        // Mapeamento de extensões para imagens
+                        let fileExtension = item.link.split(".").pop().toLowerCase();
+                        let supportedExtensions = {
+                            pdf: "images/pdf.png",
+                            doc: "images/doc.png",
+                            docx: "images/docx.png",
+                            xls: "images/xls.png",
+                            xlsx: "images/xlsx.png",
+                            ppt: "images/ppt.png",
+                            pptx: "images/pptx.png",
+                            zip: "images/zip.png",
+                            rar: "images/rar.png",
+                            txt: "images/txt.png",
+                            csv: "images/csv.png",
+                            xml: "images/xml.png",
+                            log: "images/log.png",
+                            sql: "images/sql.png",
+                            mdb: "images/mdb.png",
+                            db: "images/db.png",
+                            ini: "images/ini.png",
+                            cfg: "images/cfg.png",
+                            conf: "images/conf.png",
+                            bak: "images/bak.png",
+                            odt: "images/odt.png",
+                            ods: "images/ods.png",
+                            odp: "images/odp.png",
+                            odg: "images/odg.png",
+                            odf: "images/odf.png",
+                            odb: "images/odb.png",
+                        };
+
+                        let fileImage = supportedExtensions[fileExtension] || "images/ext.png";
+
+                        tableHTML += `
+                <tr>
+                    <td><img src="${faviconUrl}" alt="Favicon" style="width: 20px; height: 20px;"></td>
+                    <td>${item.title}</td>
+                    <td>
+                        <a href="${item.link}" target="_blank">
+                            <img src="${fileImage}" alt="${fileExtension.toUpperCase()}" style="width: 30px; height: 30px;">
+                        </a>
+                    </td>
+                </tr>
+            `;
+                    });
+
+                    tableHTML += `
+                </tbody>
+            </table>
+        `;
+
+                    resultsList.innerHTML = tableHTML;
+
+                    function updateCardVisibility(cardId, countId) {
+                        const card = document.getElementById(cardId);
+                        const countElement = document.getElementById(countId);
+                        const count = parseInt(countElement.textContent);
+
+                        if (count > 0) {
+                            card.classList.remove("hidden");
+                        } else {
+                            card.classList.add("hidden");
+                        }
+                    }
+
+                    document.getElementById("count-pdf").textContent = fileCount.pdf;
+                    updateCardVisibility("card-pdf", "count-pdf");
+
+                    document.getElementById("count-doc").textContent = fileCount.doc;
+                    updateCardVisibility("card-doc", "count-doc");
+
+                    document.getElementById("count-docx").textContent = fileCount.docx;
+                    updateCardVisibility("card-docx", "count-docx");
+
+                    document.getElementById("count-xls").textContent = fileCount.xls;
+                    updateCardVisibility("card-xls", "count-xls");
+
+                    document.getElementById("count-xlsx").textContent = fileCount.xlsx;
+                    updateCardVisibility("card-xlsx", "count-xlsx");
+
+                    document.getElementById("count-ppt").textContent = fileCount.ppt;
+                    updateCardVisibility("card-ppt", "count-ppt");
+
+                    document.getElementById("count-pptx").textContent = fileCount.pptx;
+                    updateCardVisibility("card-pptx", "count-pptx");
+
+                    document.getElementById("count-zip").textContent = fileCount.zip;
+                    updateCardVisibility("card-zip", "count-zip");
+
+                    document.getElementById("count-rar").textContent = fileCount.rar;
+                    updateCardVisibility("card-rar", "count-rar");
+
+                    document.getElementById("count-txt").textContent = fileCount.txt;
+                    updateCardVisibility("card-txt", "count-txt");
+
+                    document.getElementById("count-csv").textContent = fileCount.csv;
+                    updateCardVisibility("card-csv", "count-csv");
+
+                    document.getElementById("count-xml").textContent = fileCount.xml;
+                    updateCardVisibility("card-xml", "count-xml");
+
+                    document.getElementById("count-log").textContent = fileCount.log;
+                    updateCardVisibility("card-log", "count-log");
+
+                    document.getElementById("count-sql").textContent = fileCount.sql;
+                    updateCardVisibility("card-sql", "count-sql");
+
+                    document.getElementById("count-mdb").textContent = fileCount.mdb;
+                    updateCardVisibility("card-mdb", "count-mdb");
+
+                    document.getElementById("count-db").textContent = fileCount.db;
+                    updateCardVisibility("card-db", "count-db");
+
+                    document.getElementById("count-ini").textContent = fileCount.ini;
+                    updateCardVisibility("card-ini", "count-ini");
+
+                    document.getElementById("count-cfg").textContent = fileCount.cfg;
+                    updateCardVisibility("card-cfg", "count-cfg");
+
+                    document.getElementById("count-conf").textContent = fileCount.conf;
+                    updateCardVisibility("card-conf", "count-conf");
+
+                    document.getElementById("count-bak").textContent = fileCount.bak;
+                    updateCardVisibility("card-bak", "count-bak");
+
+                    document.getElementById("count-odt").textContent = fileCount.odt;
+                    updateCardVisibility("card-odt", "count-odt");
+
+                    document.getElementById("count-ods").textContent = fileCount.ods;
+                    updateCardVisibility("card-ods", "count-ods");
+
+                    document.getElementById("count-odp").textContent = fileCount.odp;
+                    updateCardVisibility("card-odp", "count-odp");
+
+                    document.getElementById("count-odg").textContent = fileCount.odg;
+                    updateCardVisibility("card-odg", "count-odg");
+
+                    document.getElementById("count-odf").textContent = fileCount.odf;
+                    updateCardVisibility("card-odf", "count-odf");
+
+                    document.getElementById("count-odb").textContent = fileCount.odb;
+                    updateCardVisibility("card-odb", "count-odb");
+
+                    if (customFileType) {
+                        document.getElementById("count-custom").textContent = fileCount.custom;
+                        updateCardVisibility("customCard", "count-custom");
+                    }
+
+                    let totalCount =
+                        fileCount.pdf +
+                        fileCount.doc +
+                        fileCount.docx +
+                        fileCount.xls +
+                        fileCount.xlsx +
+                        fileCount.ppt +
+                        fileCount.pptx +
+                        fileCount.zip +
+                        fileCount.rar +
+                        fileCount.txt +
+                        fileCount.csv +
+                        fileCount.xml +
+                        fileCount.log +
+                        fileCount.sql +
+                        fileCount.mdb +
+                        fileCount.db +
+                        fileCount.ini +
+                        fileCount.cfg +
+                        fileCount.conf +
+                        fileCount.bak +
+                        fileCount.odt +
+                        fileCount.ods +
+                        fileCount.odp +
+                        fileCount.odg +
+                        fileCount.odf +
+                        fileCount.odb +
+                        (customFileType ? fileCount.custom : 0);
+
+                    // Atualiza o card de Total
+                    document.getElementById("count-total").textContent = totalCount;
+                    updateCardVisibility("card-total", "count-total");
+                } catch (error) {
+                    resultsList.innerHTML = `
+						  <div class="alert alert-danger" role="alert">
+							🚨 Error searching results.<br>
+							Check if the <b>apiKey</b> and <b>cxID</b> are correct and try again.
+						  </div>
+						`;
+                }
+            }
+
+            function sortResultsByExtension(results) {
+                const order = [
+                    "pdf",
+                    "doc",
+                    "docx",
+                    "xls",
+                    "xlsx",
+                    "ppt",
+                    "pptx",
+                    "zip",
+                    "rar",
+                    "txt",
+                    "csv",
+                    "xml",
+                    "log",
+                    "sql",
+                    "mdb",
+                    "db",
+                    "ini",
+                    "cfg",
+                    "conf",
+                    "bak",
+                    "odt",
+                    "ods",
+                    "odp",
+                    "odg",
+                    "odf",
+                    "odb",
+                ];
+
+                return results.sort((a, b) => {
+                    let extA = a.link.split(".").pop().toLowerCase();
+                    let extB = b.link.split(".").pop().toLowerCase();
+
+                    let indexA = order.indexOf(extA);
+                    let indexB = order.indexOf(extB);
+
+                    // Se a extensão estiver na lista, use a ordem predefinida; caso contrário, jogue para "Outros"
+                    indexA = indexA !== -1 ? indexA : order.length;
+                    indexB = indexB !== -1 ? indexB : order.length;
+
+                    return indexA - indexB;
+                });
+            }
+
+            document.getElementById("customFileTypeCheckbox").addEventListener("change", function () {
+                document.getElementById("customFileType").style.display = this.checked ? "inline-block" : "none";
+            });
+        </script>
+
+        <footer class="bd-footer bg-body-tertiary">
+            <div class="container py-4 py-md-5 px-4 px-md-3 text-body-secondary">
+                <div class="row">
+                    <div class="col-lg-12 mb-12 text-center">
+                        <p></p>
+                        <p>
+                            <center><a href="https://www.100security.com.br/dsf" target="_blank">www.100security.com.br</a></center>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Modal -->
+        <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="aboutModalLabel"><i class="bi-person-fill" role="img" style="font-size: 1em;"></i> About</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                            <center><img src="images/dsf.png" width="400px" /></center>
+                        <p align="justify">
+                            A tool for advanced Google searches using Google Dorks to locate specific files on the internet. It allows users to filter results by file types (e.g., PDF, DOCX, XLS, TXT) and facilitates the discovery of publicly accessible information.
+                            <br/>
+                        </p>
+                        <hr>
+						<center>
+                            <img src="images/100security.png" width="80px"/>
+                            <br><br>
+                            <b>Information Security Professionals</b><br><br>
+                            <a href="https://www.linkedin.com/in/user-marcoshenrique" target="_blank"><i class="bi bi-linkedin"></i> Marcos Henrique</a>&nbsp;-&nbsp;
+                            <a href="https://www.instagram.com/100security" target="_blank"><i class="bi bi-instagram"></i> 100security</a>&nbsp;-&nbsp;
+                            <a href="https://www.github.com/100security/dsf" target="_blank"><i class="bi bi-github"></i> 100security</a>
+                        </center>
+                        <p>
+                            <center><a href="https://www.100security.com.br/dsf" target="_blank">www.100security.com.br</a></center>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            window.onscroll = function () {
+                let backTop = document.getElementById("back-top");
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    backTop.style.display = "block";
+                } else {
+                    backTop.style.display = "none";
+                }
+            };
+        </script>
+
+        <div id="back-top" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer;">
+            <a href="#top" style="text-decoration: none;">
+                <span style="font-size: 40px;"><i class="bi bi-arrow-up-circle-fill"></i></span>
+            </a>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script>
+            function downloadResultsAsCSV() {
+                if (!processedResults || processedResults.length === 0) {
+                    let alertContainer = document.getElementById("alert-container");
+                    if (alertContainer) {
+                        alertContainer.innerHTML = '<div class="alert alert-danger" role="alert"> 🙄 No results were found for your download. </div>';
+                    } else {
+                        alert("🙄 No results were found for your download.");
+                    }
+                    return;
+                }
+
+                let csvContent = "data:text/csv;charset=utf-8,Title,Link,Extension\n";
+
+                processedResults.forEach(({ title, link, fileExtension }) => {
+                    csvContent += `"${title}","${link}","${fileExtension}"\n`;
+                });
+
+                const encodedUri = encodeURI(csvContent);
+                const linkElement = document.createElement("a");
+                linkElement.setAttribute("href", encodedUri);
+                linkElement.setAttribute("download", "report.csv");
+                document.body.appendChild(linkElement);
+                linkElement.click();
+                document.body.removeChild(linkElement);
+            }
+        </script>
+    </body>
+</html>
